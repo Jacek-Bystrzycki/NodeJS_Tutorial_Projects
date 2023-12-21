@@ -1,0 +1,529 @@
+openapi: 3.0.0
+info:
+  title: Job API
+  contact:
+    name: Jacek Bystrzycki
+    email: bystrzyckijacek@gmail.com
+  version: '1.0'
+servers:
+  - url: http://localhost:5000/api/v1
+    variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register
+      operationId: Register
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/RegisterRequest'
+                - example:
+                    name: JACA
+                    email: jaca@jaca.pl
+                    password: JACA
+            example:
+              name: JACA
+              email: jaca@jaca.pl
+              password: JACA
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      operationId: Login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/LoginRequest'
+                - example:
+                    email: jaca@jaca.pl
+                    password: JACA
+            example:
+              email: jaca@jaca.pl
+              password: JACA
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /jobs:
+    get:
+      tags:
+        - Jobs
+      summary: GetAllJobs
+      operationId: GetAllJobs
+      parameters:
+        - name: Cache-Control
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: no-cache
+        - name: Postman-Token
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: <calculated when request is sent>
+        - name: Host
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: <calculated when request is sent>
+        - name: User-Agent
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: PostmanRuntime/7.32.1
+        - name: Accept
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '*/*'
+        - name: Accept-Encoding
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: gzip, deflate, br
+        - name: Connection
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: keep-alive
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+        - Jobs
+      summary: AddJob
+      operationId: AddJob
+      parameters:
+        - name: Cache-Control
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: no-cache
+        - name: Postman-Token
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: <calculated when request is sent>
+        - name: Content-Length
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
+            example: 0
+        - name: Host
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: <calculated when request is sent>
+        - name: User-Agent
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: PostmanRuntime/7.32.1
+        - name: Accept
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '*/*'
+        - name: Accept-Encoding
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: gzip, deflate, br
+        - name: Connection
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: keep-alive
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/AddJobRequest'
+                - example:
+                    company: Volen
+                    position: Automatyk
+            example:
+              company: Volen
+              position: Automatyk
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /jobs/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The job ID
+    get:
+      tags:
+        - Jobs
+      summary: GetJob
+      operationId: GetJob
+      parameters:
+        - name: Cache-Control
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: no-cache
+        - name: Postman-Token
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: <calculated when request is sent>
+        - name: Host
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: <calculated when request is sent>
+        - name: User-Agent
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: PostmanRuntime/7.32.1
+        - name: Accept
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '*/*'
+        - name: Accept-Encoding
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: gzip, deflate, br
+        - name: Connection
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: keep-alive
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    patch:
+      tags:
+        - Jobs
+      summary: EditJob
+      operationId: EditJob
+      parameters:
+        - name: Cache-Control
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: no-cache
+        - name: Postman-Token
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: <calculated when request is sent>
+        - name: Content-Length
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: <calculated when request is sent>
+        - name: Host
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: <calculated when request is sent>
+        - name: User-Agent
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: PostmanRuntime/7.32.1
+        - name: Accept
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '*/*'
+        - name: Accept-Encoding
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: gzip, deflate, br
+        - name: Connection
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: keep-alive
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/EditJobRequest'
+                - example:
+                    company: Volen
+                    position: Informatyk
+            example:
+              company: Volen
+              position: Informatyk
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    delete:
+      tags:
+        - Jobs
+      summary: DeleteJob
+      operationId: DeleteJob
+      parameters:
+        - name: Cache-Control
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: no-cache
+        - name: Postman-Token
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: <calculated when request is sent>
+        - name: Host
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: <calculated when request is sent>
+        - name: User-Agent
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: PostmanRuntime/7.32.1
+        - name: Accept
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: '*/*'
+        - name: Accept-Encoding
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: gzip, deflate, br
+        - name: Connection
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: keep-alive
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    RegisterRequest:
+      title: RegisterRequest
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: JACA
+        email: jaca@jaca.pl
+        password: JACA
+    LoginRequest:
+      title: LoginRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: jaca@jaca.pl
+        password: JACA
+    AddJobRequest:
+      title: AddJobRequest
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: Volen
+        position: Automatyk
+    EditJobRequest:
+      title: EditJobRequest
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: Volen
+        position: Informatyk
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+  - httpBearer: []
+tags:
+  - name: Auth
+    description: ''
+  - name: Jobs
+    description: ''
