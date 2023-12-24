@@ -23,11 +23,25 @@ const UserSchema = new mongoose.Schema({
     required: [true, 'Please provide User Password'],
     minlenth: 8,
   },
+  lastName: {
+    type: String,
+    trim: true,
+    maxlength: 20,
+    default: 'lastName',
+  },
+  location: {
+    type: String,
+    trim: true,
+    maxlength: 20,
+    default: 'my city',
+  },
 });
 
 //Create PRE function to hash password before sending to DB
 //Using callback - need to use Next()!!!
-UserSchema.pre('save', function (next) {
+// UserSchema.pre(['save', 'findOneAndUpdate'], function (next) {
+UserSchema.pre(['save'], function (next) {
+  if (!this.password) next();
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(this.password, salt, (err, hashPass) => {
       this.password = hashPass;

@@ -1,4 +1,3 @@
-const { login } = require('../controllers/auth');
 const { UnauthenticatedError } = require('../errors');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User.js');
@@ -11,9 +10,9 @@ const authorize = async (req, res, next) => {
   const token = authorization.split(' ')[1];
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    const { userId } = payload;
+    const { userId, userName } = payload;
     const user = await User.findById({ _id: userId }).select('-password');
-    req.user = { userId: user._id, userName: user.name };
+    req.user = { userId, userName: user.name };
     next();
   } catch (error) {
     throw new UnauthenticatedError(error);

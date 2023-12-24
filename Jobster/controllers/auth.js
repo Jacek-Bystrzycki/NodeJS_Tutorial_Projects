@@ -1,13 +1,18 @@
 const User = require('../models/User.js');
 const { StatusCodes } = require('http-status-codes');
-const jwt = require('jsonwebtoken');
 const { BadRequestError, UnauthenticatedError } = require('../errors');
 
 const register = async (req, res) => {
   const user = await User.create({ ...req.body });
-  res
-    .status(StatusCodes.CREATED)
-    .json({ user: { name: user.name }, token: user.signToken() });
+  res.status(StatusCodes.CREATED).json({
+    user: {
+      name: user.name,
+      email: user.email,
+      lastName: user.lastName,
+      location: user.location,
+      token: user.signToken(),
+    },
+  });
 };
 
 const login = async (req, res) => {
@@ -23,9 +28,36 @@ const login = async (req, res) => {
   if (!passwordValid) {
     throw new UnauthenticatedError('Invalid password');
   }
-  res
-    .status(StatusCodes.OK)
-    .json({ user: { name: user.name }, token: user.signToken() });
+  res.status(StatusCodes.OK).json({
+    user: {
+      name: user.name,
+      email: user.email,
+      lastName: user.lastName,
+      location: user.location,
+      token: user.signToken(),
+    },
+  });
 };
 
-module.exports = { register, login };
+const updateUser = async (req, res) => {
+  const user = await User.findById(req.user.userId).select('-password');
+  if (!user) throw new UnauthenticatedError('User not found');
+  const updatedUser = await User.findOneAndUpdate(
+    { email: user.email },
+    {
+      ...req.body,
+    },
+    { returnDocument: 'after' }
+  );
+  res.status(StatusCodes.OK).json({
+    user: {
+      name: updatedUser.name,
+      email: updatedUser.email,
+      lastName: updatedUser.lastName,
+      location: updatedUser.location,
+      token: updatedUser.signToken(),
+    },
+  });
+};
+
+module.exports = { register, login, updateUser };

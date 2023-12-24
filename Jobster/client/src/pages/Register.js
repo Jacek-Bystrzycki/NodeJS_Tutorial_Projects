@@ -50,51 +50,49 @@ function Register() {
     }
   }, [user]);
   return (
-    <Wrapper className='full-page'>
-      <form className='form' onSubmit={onSubmit}>
+    <Wrapper className="full-page">
+      <form className="form" onSubmit={onSubmit}>
         <Logo />
         <h3>{values.isMember ? 'Login' : 'Register'}</h3>
         {/* name field */}
         {!values.isMember && (
           <FormRow
-            type='text'
-            name='name'
+            type="text"
+            name="name"
             value={values.name}
             handleChange={handleChange}
           />
         )}
         {/* email field */}
         <FormRow
-          type='email'
-          name='email'
+          type="email"
+          name="email"
           value={values.email}
           handleChange={handleChange}
         />
         {/* password field */}
         <FormRow
-          type='password'
-          name='password'
+          type="password"
+          name="password"
           value={values.password}
           handleChange={handleChange}
         />
-        <button type='submit' className='btn btn-block' disabled={isLoading}>
+        <button type="submit" className="btn btn-block" disabled={isLoading}>
           {isLoading ? 'loading...' : 'submit'}
         </button>
         <button
-          type='button'
-          className='btn btn-block btn-hipster'
+          type="button"
+          className="btn btn-block btn-hipster"
           disabled={isLoading}
           onClick={() =>
-            dispatch(
-              loginUser({ email: 'testUser@test.com', password: 'secret' })
-            )
+            dispatch(loginUser({ email: 'demo@demo.pl', password: 'demo' }))
           }
         >
           {isLoading ? 'loading...' : 'demo app'}
         </button>
         <p>
           {values.isMember ? 'Not a member yet?' : 'Already a member?'}
-          <button type='button' onClick={toggleMember} className='member-btn'>
+          <button type="button" onClick={toggleMember} className="member-btn">
             {values.isMember ? 'Register' : 'Login'}
           </button>
         </p>
